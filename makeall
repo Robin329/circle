@@ -2,6 +2,11 @@
 
 make="${MAKE:-make}"
 
+if [[ $1 != "clean" ]]
+then
+	make=""${make}" -j8 "
+fi
+
 makesample=true
 if [[ $1 == "--nosample" ]]
 then

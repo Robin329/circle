@@ -10,7 +10,7 @@
 //
 // Circle - A C++ bare metal environment for Raspberry Pi
 // Copyright (C) 2014-2020  R. Stange <rsta2@o2online.de>
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -266,7 +266,7 @@ boolean CSMSC951xDevice::SendFrame (const void *pBuffer, unsigned nLength)
 	u32 *pTxHeader = (u32 *) TxBuffer;
 	pTxHeader[0] = TX_CMD_A_FIRST_SEG | TX_CMD_A_LAST_SEG | nLength;
 	pTxHeader[1] = nLength;
-	
+
 	assert (m_pEndpointBulkOut != 0);
 	return GetHost ()->Transfer (m_pEndpointBulkOut, TxBuffer, nLength+8) >= 0;
 }
@@ -295,7 +295,7 @@ boolean CSMSC951xDevice::ReceiveFrame (void *pBuffer, unsigned *pResultLength)
 
 		return FALSE;
 	}
-	
+
 	u32 nFrameLength = RX_STS_FRAMELEN (nRxStatus);
 	assert (nFrameLength == nResultLength-4);
 	assert (nFrameLength > 4);
@@ -311,7 +311,7 @@ boolean CSMSC951xDevice::ReceiveFrame (void *pBuffer, unsigned *pResultLength)
 
 	assert (pResultLength != 0);
 	*pResultLength = nFrameLength;
-	
+
 	return TRUE;
 }
 
