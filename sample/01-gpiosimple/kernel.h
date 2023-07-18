@@ -3,7 +3,7 @@
 //
 // Circle - A C++ bare metal environment for Raspberry Pi
 // Copyright (C) 2014  R. Stange <rsta2@o2online.de>
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,11 @@
 #define _kernel_h
 
 #include <circle/actled.h>
+#include <circle/devicenameservice.h>
+#include <circle/koptions.h>
+#include <circle/logger.h>
+#include <circle/screen.h>
+#include <circle/serial.h>
 #include <circle/types.h>
 
 enum TShutdownMode
@@ -37,12 +42,16 @@ public:
 	~CKernel (void);
 
 	boolean Initialize (void);
-
-	TShutdownMode Run (void);
+    void Print(const char *pFormat, ...);
+    TShutdownMode Run(void);
 
 private:
 	CActLED m_ActLED;
-	
+    CKernelOptions m_Options;
+    CDeviceNameService m_DeviceNameService;
+    CScreenDevice m_Screen;
+    CSerialDevice m_Serial;
+    CLogger m_Logger;
 };
 
 #endif

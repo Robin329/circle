@@ -3,7 +3,7 @@
 //
 // Circle - A C++ bare metal environment for Raspberry Pi
 // Copyright (C) 2014-2020  R. Stange <rsta2@o2online.de>
-// 
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -24,31 +24,25 @@
 
 static const char FromKernel[] = "kernel";
 
-CKernel::CKernel (void)
-:	m_Screen (m_Options.GetWidth (), m_Options.GetHeight ()),
-	m_Logger (m_Options.GetLogLevel ())
-{
-	m_ActLED.Blink (5);	// show we are alive
+CKernel::CKernel(void) : m_Screen(m_Options.GetWidth(), m_Options.GetHeight()), m_Logger(m_Options.GetLogLevel()) {
+    m_ActLED.Blink(5); // show we are alive
 }
 
-CKernel::~CKernel (void)
-{
-}
+CKernel::~CKernel(void) {}
 
 boolean CKernel::Initialize (void)
 {
 	boolean bOK = TRUE;
 
-	if (bOK)
-	{
-		bOK = m_Screen.Initialize ();
-	}
-	
-	if (bOK)
+    if (bOK) {
+        bOK = m_Screen.Initialize ();
+    }
+
+    if (bOK)
 	{
 		bOK = m_Serial.Initialize (115200);
 	}
-	
+
 	if (bOK)
 	{
 		CDevice *pTarget = m_DeviceNameService.GetDevice (m_Options.GetLogDevice (), FALSE);
@@ -59,7 +53,7 @@ boolean CKernel::Initialize (void)
 
 		bOK = m_Logger.Initialize (pTarget);
 	}
-	
+
 	return bOK;
 }
 
@@ -77,7 +71,7 @@ TShutdownMode CKernel::Run (void)
 
 		CString Message;
 		Message.Format ("%02X: \'\u001b[7m%c\u001b[0m\' ", (unsigned) chChar, chChar);
-		
+
 		m_Screen.Write ((const char *) Message, Message.GetLength ());
 	}
 	m_Screen.Write ("\n", 1);
